@@ -1,3 +1,4 @@
+// src/components/ProfileList.js
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProfiles, addProfile, removeProfile } from '../actions/profileActions';
@@ -7,16 +8,16 @@ const ProfileList = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // Fetch profiles on component mount
         dispatch(fetchProfiles());
     }, [dispatch]);
 
     const handleAddProfile = () => {
-        // Logic to add a new profile
+        const newProfile = { id: Date.now(), name: 'New User', occupation: 'Developer' };
+        dispatch(addProfile(newProfile));
     };
 
     const handleRemoveProfile = (profileId) => {
-        // Logic to remove a profile
+        dispatch(removeProfile(profileId));
     };
 
     return (
@@ -25,7 +26,7 @@ const ProfileList = () => {
             <button onClick={handleAddProfile}>Add Profile</button>
             <ul>
                 {profiles.map(profile => (
-                    <li key={profile.id}>
+                    <li key={profile.id}> {/* Ensure there's a unique key for each list item */}
                         {profile.name} - {profile.occupation}
                         <button onClick={() => handleRemoveProfile(profile.id)}>Remove</button>
                     </li>
