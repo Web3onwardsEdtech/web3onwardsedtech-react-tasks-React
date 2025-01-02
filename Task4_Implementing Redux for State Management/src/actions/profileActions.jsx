@@ -13,7 +13,8 @@ export const removeProfile = profileId => ({
 export const fetchProfiles = () => {
     return async dispatch => {
         try {
-            // Logic to fetch profiles from API
+            const response = await axios.get('/profiles.json');
+            dispatch({ type: 'SET_PROFILES', payload: response.data });
         } catch (error) {
             console.error('Error fetching profiles:', error);
         }
